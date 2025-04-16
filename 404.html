@@ -1,1 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixed Loading Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      height: 100%; /* COPYRIGHT (c) LOOPNETMEDIA & MrCraft777 */
+      margin: 0;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+    }
+
+    .loader-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      right: 1000px;
+      max-width: 175px;
+    }
+
+    #status {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .figure_top {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 0;
+      height: 0;
+    }
+
+    .dot {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+
+    .red { background-color: #D4202B; }
+    .black { background-color: #000; }
+
+    .top    { --mt: -30px; --ml:   0px; }
+    .bottom { --mt:  30px; --ml:   0px; }
+    .left   { --mt:   0px; --ml: -30px; }
+    .right  { --mt:   0px; --ml:  30px; }
+
+    .top, .bottom, .left, .right {
+      margin-top: var(--mt);
+      margin-left: var(--ml);
+    }
+
+    .animate-normal {
+      animation: moveNormal 3.7s linear infinite;
+    }
+
+    .animate-flip {
+      animation: moveWithFlip 3.7s linear infinite;
+    }
+
+    @keyframes moveNormal {
+      0% {
+        margin: var(--mt) var(--ml);
+        opacity: 1;
+        transform: rotateY(0deg);
+      }
+      25% {
+        margin: 0 0;
+        opacity: 0.2;
+        transform: rotateY(0deg);
+      }
+      30% {
+        margin: 0 0;
+        opacity: 0.2;
+        transform: rotateY(0deg);
+      }
+      60% {
+        margin: var(--mt) var(--ml);
+        opacity: 1;
+        transform: rotateY(180deg);
+      }
+      100% {
+        margin: var(--mt) var(--ml);
+        opacity: 1;
+        transform: rotateY(180deg);
+      }
+    }
+
+    @keyframes moveWithFlip {
+      0% {
+        margin-top: var(--mt);
+        margin-left: var(--ml);
+        transform: rotateY(0deg);
+        opacity: 1;
+      }
+      25% {
+        margin-top: 0;
+        margin-left: 0;
+        transform: rotateY(0deg);
+        opacity: 0.2;
+      }
+      30% {
+        margin-top: 0;
+        margin-left: 0;
+        transform: rotateY(0deg);
+        opacity: 0.2;
+      }
+      60% {
+        margin-top: var(--mt);
+        margin-left: var(--ml);
+        transform: rotateY(180deg);
+        opacity: 1;
+      }
+      100% {
+        margin-top: var(--mt);
+        margin-left: var(--ml);
+        transform: rotateY(180deg);
+        opacity: 1;
+      }
+    }
+
+    .loading-text {
+      font-weight: 600;
+      font-size: 24px;
+      color: #000;
+      position: relative;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      min-width: 32ch;
+      margin-left: 100px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="loader-wrapper">
+    <!-- Logo einfügen -->
+    <img src="https://i.postimg.cc/05YdMXSF/Design-ohne-Titel-39.png" alt="Logo" class="logo">
+
+    <div id="status">
+      <figure class="figure_top">
+        <div class="dot red top"></div>
+        <div class="dot red bottom"></div>
+        <div class="dot black left"></div>
+        <div class="dot black right"></div>
+      </figure>
+    </div>
+
+    <div class="loading-text" id="loadingText">
+      Loading LoopnetMedia Serverses.
+    </div>
+  </div>
+
+  <script>
+    function animateDots() {
+      const redDots = document.querySelectorAll('.dot.red');
+      const blackDots = document.querySelectorAll('.dot.black');
+
+      redDots.forEach(dot => {
+        dot.classList.remove('animate-normal');
+        void dot.offsetWidth;
+        dot.classList.add('animate-normal');
+      });
+
+      blackDots.forEach(dot => {
+        dot.classList.remove('animate-flip');
+        void dot.offsetWidth;
+        dot.classList.add('animate-flip');
+      });
+    }
+
+    function loopAnimation() {
+      animateDots();
+      setTimeout(() => {
+        loopAnimation();
+      }, 2700);
+    }
+
+    // Text-Animation
+    const loadingTexts = [
+      'Loading LoopnetMedia Serverses.',
+      'Loading LoopnetMedia Serverses..',
+      'Loading LoopnetMedia Serverses...'
+    ];
+    let idx = 0;
+    const el = document.getElementById('loadingText');
+    el.textContent = loadingTexts[idx++];
+    setInterval(() => {
+      el.textContent = loadingTexts[idx % loadingTexts.length];
+      idx++;
+    }, 700);
+
+    loopAnimation();
+  </script>
+</body>
+</html>
 
