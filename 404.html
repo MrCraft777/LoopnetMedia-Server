@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     html, body {
-      height: 100%; /* COPYRIGHT (c) LOOPNETMEDIA & MrCraft777 */
+      height: 100%;
       margin: 0;
       background: #fff;
       display: flex;
@@ -125,24 +125,11 @@
         opacity: 1;
       }
     }
-
-    .loading-text {
-      font-weight: 600;
-      font-size: 24px;
-      color: #000;
-      position: relative;
-      text-align: left;
-      white-space: nowrap;
-      overflow: hidden;
-      min-width: 32ch;
-      margin-left: 100px;
-    }
   </style>
 </head>
 <body>
 
   <div class="loader-wrapper">
-
     <div id="status">
       <figure class="figure_top">
         <div class="dot red top"></div>
@@ -150,10 +137,6 @@
         <div class="dot black left"></div>
         <div class="dot black right"></div>
       </figure>
-    </div>
-
-    <div class="loading-text" id="loadingText">
-      Loading LoopnetMedia Serverses.
     </div>
   </div>
 
@@ -182,22 +165,7 @@
       }, 2700);
     }
 
-    // Text-Animation
-    const loadingTexts = [
-      'Loading LoopnetMedia Serverses.',
-      'Loading LoopnetMedia Serverses..',
-      'Loading LoopnetMedia Serverses...'
-    ];
-    let idx = 0;
-    const el = document.getElementById('loadingText');
-    el.textContent = loadingTexts[idx++];
-    setInterval(() => {
-      el.textContent = loadingTexts[idx % loadingTexts.length];
-      idx++;
-    }, 700);
-
     loopAnimation();
   </script>
 </body>
 </html>
-
